@@ -1,4 +1,6 @@
 import React, { useRef, useState} from "react";
+import { useHistory } from "react-router-dom";
+
 import "./AuthForm.css";
 
 
@@ -7,60 +9,111 @@ const inputEmailRef = useRef();
 const inputPasswordRef = useRef();
 const confirmPasswordRef = useRef();
 const [isLoading, setIsLoading] = useState(false);
+const [isLogin, setIsLogin] = useState(true);
+const history = useHistory();
 
+const switchHandler = () => {
+  setIsLogin((prevState) => !prevState);
+};
 
-const submitHandler = (event) =>{
+const submitHandler = async (event) =>{
     event.preventDefault();
 
     const enteredEmail = inputEmailRef.current.value;
     const enteredPassword = inputPasswordRef.current.value;
-    const enteredConfirmPassword = confirmPasswordRef.current.value;
-
+    
     setIsLoading(true);
-    fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk',{
-        method: 'POST',
-        body: JSON.stringify({
-            email: enteredEmail,
-            password: enteredPassword,
-            confirmPassword:enteredConfirmPassword,
-            returnSecureToken: true,
-          }), 
-          headers: {
-            'Content-Type': 'application/json',
-          },
-    })
-    .then((res) => {
-        setIsLoading(false);
-        if (res.ok) {
-            console.log('user succesfully registered');
-          return res.json();
-         
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = 'Authentication failed!';
-            if (data && data.error && data.error.message) {
-              errorMessage = data.error.message;
+    if (!isLogin) {
+        try {
+          const response = await fetch(
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
             }
-
-            alert(errorMessage);
-          });
+          );
+          if (response.ok) {
+            const data = await response.json();
+            
+            console.log("User has successfully Loged in.");
+            localStorage.setItem("Token", data.idToken);
+            localStorage.setItem("userID", data.localId);
+            inputEmailRef.current.value = "";
+            inputPasswordRef.current.value = "";
+            setIsLoading(false);
+            history.push('/profile');
+          } else {
+            const data = await response.json();
+            alert(data.error.message);
+          }
+        } catch (err) {
+          console("Loging Something went wrong!");
         }
-      })
-
+      
+    }
+    else if (isLogin) {
+      if (inputPasswordRef.current.value === confirmPasswordRef.current.value ) {
+        try {
+          const response = await fetch(
+            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: enteredEmail,
+                password: enteredPassword,
+                returnSecureToken: true,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+            );
+            if (response.ok) {
+              console.log("User has successfully signed up.");
+              inputEmailRef.current.value = "";
+              inputPasswordRef.current.value = "";
+              confirmPasswordRef.current.value = "";
+              setIsLogin(true);
+              setIsLoading(false);
+            } else {
+              const data = await response.json();
+              alert(data.error.message);
+            }
+          } catch (err) {
+            console.log(err);
+          }
+        } else {
+          alert("Password doesnot match");
+        }
+      }
+   
 }
-
 
   return (
     <div className="signup">
       <form onSubmit={submitHandler}>
         <div className="heading">
-          <h2>SignUp</h2>
+          <h2>{!isLogin ? 'Login' : 'Sign Up'}</h2>
 
           <div className="useremail">
-            <input type="email" placeholder="Email" htmlFor="email" ref={inputEmailRef} required />
+            <input
+             className={isLogin ?'input-signup' : 'input-login' }
+             type="email"
+             placeholder="Email"
+             htmlFor="email" 
+             ref={inputEmailRef}
+              required />
           </div>
           <div className="userpassword">
             <input
+              className={isLogin ?'input-signup' : 'input-login' }
               type="password"
               placeholder="Password"
               htmlFor="password"
@@ -71,7 +124,8 @@ const submitHandler = (event) =>{
             />
           </div>
           <div className="confirmpassword ">
-            <input
+           {isLogin && ( <input
+              className='input-signup'
               type="password"
               placeholder="Confirm Password"
               htmlFor="password"
@@ -80,18 +134,23 @@ const submitHandler = (event) =>{
               ref={confirmPasswordRef}
               required
             />
+           )}
           </div>
           <div className="sign-btn">
           {!isLoading && (
-            <button>Sign Up</button>
+            <button>{!isLogin ? 'Login' : 'Sign up'}</button>
             )}
             {isLoading && <p>Sending request...</p>}
+            {!isLogin && (
+              <a href="#">Forgot Password</a>
+            )}
 
           </div>
         </div>
       </form>
       <div className="msg-box">
-        <button>Have an account? login</button>
+        <button onClick={switchHandler}>
+        {!isLogin ? 'Dont have an acount? SignUp' : 'Have an account? login'}</button>
       </div>
     </div>
   );
