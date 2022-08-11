@@ -51,7 +51,7 @@ const submitHandler = async (event) =>{
             inputPasswordRef.current.value = "";
             setIsLoading(false);
            conCtx.login(data.idToken, data.email);
-            history.replace('/profile');
+            history.replace('/home');
           } else {
             const data = await response.json();
             alert(data.error.message);
@@ -156,6 +156,7 @@ const submitHandler = async (event) =>{
         {isLogin ? 'Dont have an acount? SignUp' : 'Have an account? login'}</button>
       </div>
     </div>
+   
   );
 };
 

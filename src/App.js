@@ -4,6 +4,7 @@ import Layout from "./Components/Layout/Layout";
 import AuthPage from "./Components/Pages/AuthPage";
 import Home from "./Components/Pages/Home";
 import ProfilePage from "./Components/Pages/ProfilePage";
+import AuthContext from "./Store/AuthContext";
 
 
 
@@ -11,21 +12,21 @@ import ProfilePage from "./Components/Pages/ProfilePage";
 
 
 function App() {
- 
+  const conCtx= useContext(AuthContext);
 
   return (
     <Fragment>
       <Layout/>
     <Switch>
-   <Route path="/home" >
+    {conCtx.isLoggedIn && <Route path="/home" >
          <Home />
-        </Route>
-    <Route path="/auth" >
+        </Route>}
+        {!conCtx.isLoggedIn && <Route path="/auth" >
          <AuthPage />
-        </Route>
-     <Route path='/profile'>
+        </Route>}
+        {conCtx.isLoggedIn && <Route path='/profile'>
         <ProfilePage />
-        </Route> 
+        </Route> }
         <Route path="*">
           <Redirect to="/" />
         </Route>

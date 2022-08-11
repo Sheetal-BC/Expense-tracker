@@ -125,7 +125,7 @@ const ProfilePage = () => {
               </button>
             </div>
           </form>
-       
+      
       </div>
        )}
     </Fragment>

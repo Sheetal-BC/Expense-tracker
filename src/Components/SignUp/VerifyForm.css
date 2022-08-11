@@ -1,0 +1,47 @@
+.verifation{
+    margin: 3rem auto;
+    max-width: 35rem;
+    height: 15rem;
+    border-radius: 6px;
+    box-shadow: 1px 1px 4px rgba(10, 10, 10, 0.2);
+    padding: 1rem;
+    text-align: center;
+    justify-items: space-between;
+}
+
+.verifation h4{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.verifation button{
+    width: 10rem;
+    height: 3rem;
+    font-size: 15px;
+    background-color: rgb(64, 162, 241);
+    color: white;
+    border-radius: 3px;
+    border: none;
+}
+
+.verifation button:hover{
+    background-color: white;
+    font-weight: bold;
+    color: rgb(64, 162, 241);
+    border: 1px solid rgb(64, 162, 241);
+}
+
+.verified{
+    font-style: italic;
+    font-weight: 400;
+    font-size: 25px;
+    color: rgb(64, 162, 241);
+}
+
+.verified img{
+    height: 50px;
+    width: 50px;
+    
+}
+
