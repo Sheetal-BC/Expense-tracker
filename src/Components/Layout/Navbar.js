@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../Store/AuthContext";
 import './NavbarElement.css';
 
 
 
 
 const Navbar = () => {
-  
+  const authCtx = useContext(AuthContext);
+
+  const isLoggedIn = authCtx.isLoggedIn;
+
   return (
     <header className="header">
       <Link to="/home">
@@ -15,14 +19,21 @@ const Navbar = () => {
       <nav>
         <ul>
          <li>
+         {isLoggedIn && (
           <Link to="/profile">Profile</Link>
-         </li>
-
+          )} 
+        </li>
+         
          <li>
-          <Link to="/auth">SignUp</Link>
+         {isLoggedIn && (
+          <Link to="/auth">Login</Link>
+         )}
          </li>
+         
          <li>
+         {isLoggedIn && (
             <button>Logout</button>
+         )}
           </li>
        
         </ul>

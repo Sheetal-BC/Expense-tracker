@@ -1,0 +1,11 @@
+.starting {
+    margin: 3rem auto;
+    text-align: center;
+  }
+  
+  .starting h1 {
+    font-size: 2rem;
+    font-style: italic;
+    font-weight: 400;
+    color: rgb(64, 162, 241);
+  }

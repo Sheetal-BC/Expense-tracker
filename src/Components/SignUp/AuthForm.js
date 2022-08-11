@@ -1,10 +1,12 @@
-import React, { useRef, useState} from "react";
+import React, { useRef, useState, useContext} from "react";
 import { useHistory } from "react-router-dom";
-
+import AuthContext from "../../Store/AuthContext";
 import "./AuthForm.css";
 
 
 const AuthForm = () => {
+  const conCtx = useContext(AuthContext);
+  
 const inputEmailRef = useRef();
 const inputPasswordRef = useRef();
 const confirmPasswordRef = useRef();
@@ -23,7 +25,7 @@ const submitHandler = async (event) =>{
     const enteredPassword = inputPasswordRef.current.value;
     
     setIsLoading(true);
-    if (!isLogin) {
+    if (isLogin) {
         try {
           const response = await fetch(
             "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
@@ -43,12 +45,13 @@ const submitHandler = async (event) =>{
             const data = await response.json();
             
             console.log("User has successfully Loged in.");
-            localStorage.setItem("Token", data.idToken);
+            localStorage.setItem('Token',data.idToken);
             localStorage.setItem("userID", data.localId);
             inputEmailRef.current.value = "";
             inputPasswordRef.current.value = "";
             setIsLoading(false);
-            history.push('/profile');
+           conCtx.login(data.idToken, data.email);
+            history.replace('/profile');
           } else {
             const data = await response.json();
             alert(data.error.message);
@@ -58,7 +61,7 @@ const submitHandler = async (event) =>{
         }
       
     }
-    else if (isLogin) {
+    else if (!isLogin) {
       if (inputPasswordRef.current.value === confirmPasswordRef.current.value ) {
         try {
           const response = await fetch(
@@ -100,11 +103,11 @@ const submitHandler = async (event) =>{
     <div className="signup">
       <form onSubmit={submitHandler}>
         <div className="heading">
-          <h2>{!isLogin ? 'Login' : 'Sign Up'}</h2>
+          <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
 
           <div className="useremail">
             <input
-             className={isLogin ?'input-signup' : 'input-login' }
+             className={isLogin ? 'input-login':'input-signup' }
              type="email"
              placeholder="Email"
              htmlFor="email" 
@@ -113,7 +116,7 @@ const submitHandler = async (event) =>{
           </div>
           <div className="userpassword">
             <input
-              className={isLogin ?'input-signup' : 'input-login' }
+              className={isLogin ?'input-login':'input-signup' }
               type="password"
               placeholder="Password"
               htmlFor="password"
@@ -124,7 +127,7 @@ const submitHandler = async (event) =>{
             />
           </div>
           <div className="confirmpassword ">
-           {isLogin && ( <input
+           {!isLogin && ( <input
               className='input-signup'
               type="password"
               placeholder="Confirm Password"
@@ -138,10 +141,10 @@ const submitHandler = async (event) =>{
           </div>
           <div className="sign-btn">
           {!isLoading && (
-            <button>{!isLogin ? 'Login' : 'Sign up'}</button>
+            <button>{isLogin ? 'Login' : 'Sign up'}</button>
             )}
             {isLoading && <p>Sending request...</p>}
-            {!isLogin && (
+            {isLogin && (
               <a href="#">Forgot Password</a>
             )}
 
@@ -150,7 +153,7 @@ const submitHandler = async (event) =>{
       </form>
       <div className="msg-box">
         <button onClick={switchHandler}>
-        {!isLogin ? 'Dont have an acount? SignUp' : 'Have an account? login'}</button>
+        {isLogin ? 'Dont have an acount? SignUp' : 'Have an account? login'}</button>
       </div>
     </div>
   );

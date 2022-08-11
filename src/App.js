@@ -1,25 +1,31 @@
-import React, { Fragment } from "react";
+import React, { Fragment,useContext } from "react";
 import { Route,Switch, Redirect } from "react-router-dom";
 import Layout from "./Components/Layout/Layout";
-import Navbar from "./Components/Layout/Navbar";
+import AuthPage from "./Components/Pages/AuthPage";
+import Home from "./Components/Pages/Home";
 import ProfilePage from "./Components/Pages/ProfilePage";
-import AuthForm from "./Components/SignUp/AuthForm";
+
 
 
 
 
 
 function App() {
+ 
+
   return (
     <Fragment>
       <Layout/>
     <Switch>
-        <Route path="/auth" >
-         <AuthForm />
+   <Route path="/home" >
+         <Home />
         </Route>
-        <Route path="/profile">
-          <ProfilePage />
+    <Route path="/auth" >
+         <AuthPage />
         </Route>
+     <Route path='/profile'>
+        <ProfilePage />
+        </Route> 
         <Route path="*">
           <Redirect to="/" />
         </Route>

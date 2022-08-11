@@ -2,3 +2,89 @@
     font-style: italic;
     font-weight: 300;
 }
+
+.welcome hr{
+    margin-top: -40px;
+}
+
+.welcome p{
+    position: relative;
+    left:78%;
+    right: 50px;
+    bottom: 70px;
+    background-color: rgb(245, 212, 212);
+    width:300px;
+    height: 30px;
+    text-align: center;
+    border-radius: 5px;
+    font-style: italic;
+}
+.welcome button{
+    background-color: transparent;
+    color: blue;
+    text-decoration: underline;
+    border: none;
+    font-style: italic;
+}
+
+
+.contactDetail{
+    margin: 3rem auto;
+    max-width: 60rem;
+    height: 18rem;
+    border-radius: 6px;
+    box-shadow: 1px 1px 4px rgba(7, 7, 7, 0.2);
+    padding: 1rem;
+    text-align: center;
+    justify-items: space-between;
+  }
+  
+  .profiledetails {
+    font: inherit;
+    color: black;
+    width: 100%;
+    padding: 0.3rem;
+    
+  }
+
+ .profile label{
+  display: inline-block;
+ }
+
+ .profile img{
+  width: 40px;
+  height: 40px;
+  position: relative;
+  right: 30px;
+  top: 10px;
+ }
+
+
+  .profile input {
+    font: inherit;
+    color: black;
+    width: 50%;
+    padding: 0.3rem;
+    margin:20px;
+  }
+
+  .btn{
+    margin-bottom: 0.5rem;
+  }
+
+  .update-btn button {
+    color: white;
+    background-color:  #01a5a5;
+    border-radius: 5px;
+    border: none;
+    width: 10%;
+    height: 40px;
+    font-size: medium;
+    cursor: pointer;
+  }
+
+  .update-btn button:hover{
+    background-color: rgb(65, 247, 247);
+  }
+  
+
