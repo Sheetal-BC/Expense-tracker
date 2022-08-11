@@ -40,16 +40,16 @@ const ProfilePage = () => {
         });
       } else {
         const data = await res.json();
-       console.log(data);
+           console.log(data);
       }
     } catch (err) {
-      
+      console.log(err);
     }
   };
 
   useEffect(() => {
     autogetData();
-  }, []);
+  });
 
   const updateHandler = async(event) => {
     event.preventDefault();
