@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import AuthContext from "../../Store/AuthContext";
 import './NavbarElement.css';
 
@@ -7,9 +7,19 @@ import './NavbarElement.css';
 
 
 const Navbar = () => {
-  const authCtx = useContext(AuthContext);
+  const conCtx = useContext(AuthContext);
+  const history = useHistory();
 
-  const isLoggedIn = authCtx.isLoggedIn;
+  const isLoggedIn = conCtx.isLoggedIn;
+
+  const logoutHandler = (event) => {
+    event.preventDefault();
+    localStorage.setItem("Token", "");
+    localStorage.setItem("userID", "");
+    localStorage.setItem("Email", "");
+    conCtx.logout()
+    history.replace("/Auth");
+  };
 
   return (
     <header className="header">
@@ -25,14 +35,14 @@ const Navbar = () => {
         </li>
          
          <li>
-         {isLoggedIn && (
+         {!isLoggedIn && (
           <Link to="/auth">Login</Link>
          )}
          </li>
          
          <li>
          {isLoggedIn && (
-            <button>Logout</button>
+            <button onClick={logoutHandler}>Logout</button>
          )}
           </li>
        
