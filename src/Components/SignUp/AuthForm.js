@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext} from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import AuthContext from "../../Store/AuthContext";
 import "./AuthForm.css";
 
@@ -145,7 +145,7 @@ const submitHandler = async (event) =>{
             )}
             {isLoading && <p>Sending request...</p>}
             {isLogin && (
-              <a href="#">Forgot Password</a>
+              <Link to='/forgotpassword'>Forgot Password</Link>
             )}
 
           </div>

@@ -31,7 +31,10 @@ const ProfilePage = () => {
           },
         }
       );
+
+     
       if (res.ok) {
+        
         const data = await res.json();
         data.users.forEach((element) => {
           console.log(data.users);
@@ -43,7 +46,7 @@ const ProfilePage = () => {
            console.log(data);
       }
     } catch (err) {
-      console.log(err);
+     
     }
   };
 
