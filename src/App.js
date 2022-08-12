@@ -6,6 +6,7 @@ import AuthPage from "./Components/Pages/AuthPage";
 import Home from "./Components/Pages/Home";
 import ProfilePage from "./Components/Pages/ProfilePage";
 import AuthContext from "./Store/AuthContext";
+import ExpensePage from "./Components/Pages/ExpensePage";
 
 
 
@@ -27,6 +28,9 @@ function App() {
         </Route>}
         {conCtx.isLoggedIn && <Route path='/profile'>
         <ProfilePage />
+        </Route> }
+        {conCtx.isLoggedIn && <Route path='/expense'>
+        <ExpensePage />
         </Route> }
         {!conCtx.isLoggedIn && <Route path='/forgotpassword'>
         <ForgotPasswordPage />

@@ -33,6 +33,12 @@ const Navbar = () => {
           <Link to="/profile">Profile</Link>
           )} 
         </li>
+
+        <li>
+         {isLoggedIn && (
+          <Link to="/expense">Expense</Link>
+         )}
+         </li>
          
          <li>
          {!isLoggedIn && (

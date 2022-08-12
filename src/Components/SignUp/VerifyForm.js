@@ -80,7 +80,7 @@ const VerifyForm = () => {
           {checkVerified && (
             <div className=" verified">
               <p>Verification successfully done!!</p>
-              <img src={process.env.PUBLIC_URL+'checked.png'}/>
+              <img src={process.env.PUBLIC_URL+'checked.png'} alt="verification icon"/>
               <h4>
                 Your Profile is incomplete please
                 <Link to="/profile"> update Your Profile</Link>

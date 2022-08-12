@@ -7,6 +7,7 @@
     padding: 1rem;
     text-align: center;
     justify-items: space-between;
+    border: 1px solid rgb(64, 162, 241);
 }
 
 .verifation h4{

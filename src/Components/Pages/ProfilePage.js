@@ -15,7 +15,7 @@ const ProfilePage = () => {
 
 
   const autogetData = async () => {
-        const token = localStorage.getItem("token");
+      
     try {
      
       const res = await fetch(
@@ -58,7 +58,7 @@ const ProfilePage = () => {
     event.preventDefault();
     const entertedName = nameInputRef.current.value;
     const entertedPhotoUrl = photoUrlRef.current.value;
-    const token = localStorage.getItem("token");
+ 
     
     setShowUpdate(true);
     try {
@@ -80,6 +80,7 @@ const ProfilePage = () => {
       if (res.ok) {
         const data = await res.json();
         console.log("Updated success");
+        console.log(data)
         nameInputRef.current.value = "";
         photoUrlRef.current.value = "";
       } else {
@@ -109,20 +110,17 @@ const ProfilePage = () => {
           <form>
             
             <div className="profile">
-                <img src={process.env.PUBLIC_URL+'profile.png'}  /> 
+                <img src={process.env.PUBLIC_URL+'profile.png'} alt='profile'  /> 
                 <label>Full Name</label>
               <input type="text" ref={nameInputRef} required />
             </div>
             <div className="profile">
-            <img src={process.env.PUBLIC_URL+'Globe.png'}  /> 
+            <img src={process.env.PUBLIC_URL+'Globe.png'}  alt='[url' /> 
               <label>Photo url</label>
               <input type="text" ref={photoUrlRef} required />
             </div>
         
             <div className="update-btn">
-
-            
-            
               <button onClick={updateHandler} className="updatebtn">
                 Update
               </button>
