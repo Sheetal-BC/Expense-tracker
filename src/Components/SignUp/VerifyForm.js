@@ -11,7 +11,7 @@ const VerifyForm = () => {
 
     try {
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+        "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyBHFjUKM-aGm5ZqkAwmU3jfMJK9vgEyBKE",
         {
           method: "POST",
           body: JSON.stringify({
@@ -46,7 +46,7 @@ const VerifyForm = () => {
 
     try {
       const res = await fetch(
-        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+        "https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=AIzaSyBHFjUKM-aGm5ZqkAwmU3jfMJK9vgEyBKE",
         {
           method: "POST",
           body: JSON.stringify({

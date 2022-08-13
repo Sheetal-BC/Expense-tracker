@@ -3,9 +3,10 @@ import React, { useState } from 'react';
 const AuthContext = React.createContext({
   token: '',
   email: '',
-  isLoggedIn: false,
-  login: (token) => {},
+  isLoggedIn: true,
+  login: (token,email) => {},
   logout: () => {},
+  
 });
 
 export const AuthContextProvider = (props) => {

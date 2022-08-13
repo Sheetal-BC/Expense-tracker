@@ -3,25 +3,29 @@ import React from "react";
 import './ExpenseList.css';
 
 
+
 const ExpenseList = (props) => {
+
+
     let expenseTotal = 0;
     props.items.forEach((item) => {
       let subtotal = 0;
       subtotal = Number(item.amount);
-      expenseTotal = expenseTotal + subtotal;
+      expenseTotal = Number(expenseTotal + subtotal);
     });
 
- 
+
+  
     return (
       <>
-      <div className="table-list">
+      <div className="table-list" >
         {props.items.map((item) => {
-          return (      
+          return (     
              <ul key={item.id}>
-                        <div className="amount">Description: {item.description}</div>
-                        <div className="amount">Category: {item.category}</div>
-                        <div className="amount">Amount: <span>&#8377;{item.amount}</span> </div>
-            </ul>
+                        <li className="amount">Description: {item.description}</li>
+                        <li className="amount">Category: {item.category}</li>
+                        <li className="amount">Amount: <span>&#8377;{item.amount}</span> </li>
+              </ul>
           );
         })}
       </div>

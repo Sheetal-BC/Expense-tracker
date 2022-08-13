@@ -28,7 +28,7 @@ const submitHandler = async (event) =>{
     if (isLogin) {
         try {
           const response = await fetch(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+            "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBHFjUKM-aGm5ZqkAwmU3jfMJK9vgEyBKE",
             {
               method: "POST",
               body: JSON.stringify({
@@ -65,7 +65,7 @@ const submitHandler = async (event) =>{
       if (inputPasswordRef.current.value === confirmPasswordRef.current.value ) {
         try {
           const response = await fetch(
-            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBwU1sMNAm0lD4QbSAAmDEDhr5ngGYI-Lk",
+            "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBHFjUKM-aGm5ZqkAwmU3jfMJK9vgEyBKE",
             {
               method: "POST",
               body: JSON.stringify({
