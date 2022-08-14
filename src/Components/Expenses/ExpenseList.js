@@ -1,5 +1,6 @@
 import React from "react";
-
+import { faTrashCan, faEdit } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './ExpenseList.css';
 
 
@@ -14,7 +15,6 @@ const ExpenseList = (props) => {
       expenseTotal = Number(expenseTotal + subtotal);
     });
 
-
   
     return (
       <>
@@ -22,12 +22,26 @@ const ExpenseList = (props) => {
         {props.items.map((item) => {
           return (     
              <ul key={item.id}>
-                        <li className="amount">Description: {item.description}</li>
-                        <li className="amount">Category: {item.category}</li>
-                        <li className="amount">Amount: <span>&#8377;{item.amount}</span> </li>
+                        <li className="item_description">Description: {item.description}</li>
+                        <li className="item_category">Category: {item.category}</li>
+                        <li className="item_amount">Amount: <span>&#8377;{item.amount}</span> </li>
+                        <button className="delete-btn" 
+                        onClick={()=>props.onDelete(item.id)} 
+                        >
+                          <FontAwesomeIcon icon={faTrashCan} className="highlight" size='2x'/></button>
+                        <button className='edit-btn'
+                        onClick={()=>props.onEdit(item.id,item)}>
+                          <FontAwesomeIcon icon={faEdit} className="edit" size='2x'/>
+                        </button>
               </ul>
-          );
+              
+          )
+             
+        
         })}
+        
+             
+              {/* <button onClick={editExpense}>Edit</button> */}
       </div>
       <div className="expensetotal">
         <h1> Total Amount spent: <span>&#8377;{expenseTotal}</span></h1>

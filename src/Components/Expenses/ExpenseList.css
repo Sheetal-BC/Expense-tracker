@@ -2,7 +2,7 @@
   margin-left: 20%;
 }
 
-.amount{
+.item_amount{
   display:inline-block;
   background-color: rgb(64, 162, 241);
   width: 25%;
@@ -14,6 +14,35 @@
   border: none;
  text-align: center;
  font-size: 18px;
+ border-radius: 0px 8px 8px 0px;
+}
+.item_category{
+  display:inline-block;
+  background-color: rgb(64, 162, 241);
+  width: 25%;
+  height: 40px;
+  color:white;
+  font-style: italic;
+  box-shadow: 1px 1px 4px rgba(7, 7, 7, 0.2);
+  padding-top:10px ;
+  border: none;
+ text-align: center;
+ font-size: 18px;
+}
+
+.item_description{
+  display:inline-block;
+  background-color: rgb(64, 162, 241);
+  width: 25%;
+  height: 40px;
+  color:white;
+  font-style: italic;
+  box-shadow: 1px 1px 4px rgba(7, 7, 7, 0.2);
+  padding-top:10px ;
+  border: none;
+ text-align: center;
+ font-size: 18px;
+ border-radius: 8px 0px 0px 8px;
 }
 
 .expensetotal{
@@ -33,4 +62,21 @@
 .expensetotal h1{
   font-weight: 300;
   font-size: 1.5rem;
+}
+
+.delete-btn{
+  background-color: transparent;
+  border: none;
+}
+
+.edit-btn{
+  background-color: transparent;
+  border: none;
+}
+.highlight{
+  color:red;
+}
+
+.edit{
+  color:  rgb(64, 162, 241);
 }
