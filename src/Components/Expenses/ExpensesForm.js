@@ -1,16 +1,32 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
 import axios from "axios";
-
 import "./ExpenseForm.css";
 import ExpenseList from "./ExpenseList";
+import { userExpences } from "../store/expenseReducer";
+import { useDispatch, useSelector } from "react-redux";
+import { set } from "../store/theme";
+import Switch from "../Switch/Switch";
+
 
 const ExpenseForm = () => {
   const [expense, setExpense] = useState([]);
-
+  const [download, setDownload] = useState(false);
+  const dispatch = useDispatch();
   const amountInputRef = useRef();
   const descriptionInputRef = useRef();
   const categoryInputRef = useRef();
   const [expenseData, setExpenseData] = useState({});
+  const showPremiumButton = useSelector((state) => state.expence.setPremium);
+  const theme = useSelector((state) => state.theme);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    showExpensesOnScreen();
+  }, []);
 
   const showExpensesOnScreen = async () => {
     const userId = localStorage.getItem("userID");
@@ -29,14 +45,11 @@ const ExpenseForm = () => {
         });
       }
       setExpense(arr);
+      dispatch(userExpences(arr));
     } catch (err) {
       console.log(err);
     }
   };
-
-  useEffect(() => {
-    showExpensesOnScreen();
-  }, []);
 
   const addExpenseHandler = async (event) => {
     event.preventDefault();
@@ -53,23 +66,26 @@ const ExpenseForm = () => {
     console.log(newExpense);
 
     const userId = localStorage.getItem("userID");
-    if (expenseData?.id) {
-      console.log('in update')
-      expenseData.description=descriptionInputRef.current.value
-      expenseData.amount=amountInputRef.current.value
-      expenseData.category=categoryInputRef.current.value
+    if (expenseData.id) {
+      console.log("Updated sucessfully");
+
+      let obj = {
+        description: descriptionInputRef.current.value,
+        amount: amountInputRef.current.value,
+        category: categoryInputRef.current.value,
+      };
       try {
         const res = await axios
           .put(
-            `https://expense-tracker-data-76538-default-rtdb.firebaseio.com/expenses/${userId}/${expenseData?.id}.json`,
-            expenseData
+            `https://expense-tracker-data-76538-default-rtdb.firebaseio.com/expenses/${userId}/${expenseData.id}.json`,
+            obj
           )
           .then((resp) => {
             console.log("after update", resp?.data);
-            setExpenseData({})
+            setExpenseData({});
             showExpensesOnScreen();
           });
-          console.log(res)
+        console.log(res?.data);
       } catch (err) {
         console.log(err);
       }
@@ -110,19 +126,45 @@ const ExpenseForm = () => {
   };
 
   const editHandler = async (id, item) => {
-  
-    amountInputRef.current.value = item?.amount;
-    descriptionInputRef.current.value = item?.description;
-    categoryInputRef.current.value = item?.category;
+    amountInputRef.current.value = item.amount;
+    descriptionInputRef.current.value = item.description;
+    categoryInputRef.current.value = item.category;
     setExpenseData(item);
-    // const res = await axios.put(`https://expense-tracker-data-76538-default-rtdb.firebaseio.com/expenses/${userId}/${id}.json`,expense);
     console.log(id, item);
   };
 
+
+  const handleChange = () => {
+    setDownload(true);
+  };
+ 
+
+  const handleToggle = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    dispatch(set(next));
+  };
+
+  const downloadHandler = () => {
+    const data = JSON.stringify(expense);
+    let blob = new Blob([data]);
+    console.log("blob", blob);
+    let file = URL.createObjectURL(blob);
+    let a = document.createElement("a");
+    a.download = "mydata.csv";
+    a.href = file;
+    a.click();
+   
+  };
+
+ 
+
   return (
     <Fragment>
+      {showPremiumButton && <Switch onToggle={handleToggle} />}
+
       <div className="container">
         <h3>Expense Tracker</h3>
+
         <form onSubmit={addExpenseHandler}>
           <div>
             <input
@@ -135,7 +177,7 @@ const ExpenseForm = () => {
           <div>
             <input
               type="text"
-              placeholder="Discription"
+              placeholder="Description"
               ref={descriptionInputRef}
               required
             />
@@ -167,6 +209,12 @@ const ExpenseForm = () => {
             <button>Add Expense</button>
           </div>
         </form>
+      </div>
+      <div className="addPremium" data-theme={theme}>
+        {showPremiumButton && (
+          <button onClick={handleChange}>Activate Premium</button>
+        )}
+        {download && <button onClick={downloadHandler} >Download file</button>}
       </div>
       <div>
         <ExpenseList

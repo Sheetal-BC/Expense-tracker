@@ -1,51 +1,57 @@
-import React, { Fragment,useContext } from "react";
-import { Route,Switch, Redirect } from "react-router-dom";
-import ForgotPasswordPage from "./Components/Pages/ForgotPasswordPage";
+import React, { Fragment } from "react";
+import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom";
+import ForgotPasswordForm from "./Components/Pages/ForgotPassword/ForgotPasswordForm";
 import Layout from "./Components/Layout/Layout";
-import AuthPage from "./Components/Pages/AuthPage";
-import Home from "./Components/Pages/Home";
-import ProfilePage from "./Components/Pages/ProfilePage";
-import AuthContext from "./Store/AuthContext";
-import ExpensePage from "./Components/Pages/ExpensePage";
-
-
-
-
-
+import Home from "./Components/Pages/HomePage/Home";
+import ProfilePage from "./Components/Pages/ProfilePage/ProfilePage";
+// import AuthContext from "./Store/AuthContext";
+import ExpensePage from "./Components/Pages/Expense/ExpensePage";
+import { useSelector } from "react-redux";
+import "./App.css";
+import AuthForm from "./Components/Pages/AuthPage/AuthForm";
 
 function App() {
-  const conCtx= useContext(AuthContext);
-
+  // const conCtx= useContext(AuthContext);
+  const state = useSelector((state) => state);
   return (
-    <Fragment>
-      <Layout/>
-    <Switch>
-    {conCtx.isLoggedIn && <Route path="/home" >
-         <Home />
-        </Route>}
-        {!conCtx.isLoggedIn && <Route path="/auth" >
-         <AuthPage />
-        </Route>}
-        {conCtx.isLoggedIn && <Route path='/profile'>
-        <ProfilePage />
-        </Route> }
-        {conCtx.isLoggedIn && <Route path='/expense'>
-        <ExpensePage />
-        </Route> }
-        {!conCtx.isLoggedIn && <Route path='/forgotpassword'>
-        <ForgotPasswordPage />
-        </Route> }
+    <BrowserRouter>
+      <Fragment>
+        <Layout />
+      
+        <Switch>
+          {state?.user?.isAuthenticated === true && (
+            <Route exact path="/home">
+              <Home />
+            </Route>
+          )}
 
-        <Route path="*">
-          <Redirect to="/" />
-        </Route>
-      </Switch>
-   
-    </Fragment>
-    
-    
-  )
-  
+          {state?.user?.isAuthenticated === false && (
+            <Route exact path="/">
+              <AuthForm />
+            </Route>
+          )}
+
+          {state?.user?.isAuthenticated && (
+            <Route exact path="/profile">
+              <ProfilePage />
+            </Route>
+          )}
+          {state?.user?.isAuthenticated && (
+            <Route exact path="/expense">
+              <ExpensePage />
+            </Route>
+          )}
+          {state?.user?.isAuthenticated === false && (
+            <Route exact path="/forgotpassword">
+              <ForgotPasswordForm />
+            </Route>
+          )}
+          {state?.user?.isAuthenticated === false &&<Route path="*">
+            <Redirect to="/" />
+          </Route>}
+        </Switch>
+      </Fragment>
+    </BrowserRouter>
+  );
 }
-
 export default App;

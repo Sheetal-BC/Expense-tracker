@@ -3,11 +3,11 @@
     max-width: 35rem;
     height: 15rem;
     border-radius: 6px;
-    box-shadow: 1px 1px 4px rgba(10, 10, 10, 0.2);
+    box-shadow: 1px 1px 4px #888888;
     padding: 1rem;
     text-align: center;
     justify-items: space-between;
-    border: 1px solid rgb(64, 162, 241);
+  
 }
 
 .verifation h4{

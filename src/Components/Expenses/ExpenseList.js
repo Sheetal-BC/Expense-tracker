@@ -3,8 +3,6 @@ import { faTrashCan, faEdit } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import './ExpenseList.css';
 
-
-
 const ExpenseList = (props) => {
 
 
@@ -13,8 +11,10 @@ const ExpenseList = (props) => {
       let subtotal = 0;
       subtotal = Number(item.amount);
       expenseTotal = Number(expenseTotal + subtotal);
+      
     });
-
+   
+  
   
     return (
       <>
@@ -41,11 +41,12 @@ const ExpenseList = (props) => {
         })}
         
              
-              {/* <button onClick={editExpense}>Edit</button> */}
+             
       </div>
       <div className="expensetotal">
         <h1> Total Amount spent: <span>&#8377;{expenseTotal}</span></h1>
       </div>
+     
       </>
     );
   };

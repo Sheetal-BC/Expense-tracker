@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import "./VerifyForm.css";
 
 const VerifyForm = () => {
-  const [checkVerified, setverified] = useState(false);
+  const [checkVerified, setVerified] = useState(false);
 
   const autoVerifyEmailCheck = async () => {
     const token = localStorage.getItem("Token");
@@ -29,7 +29,7 @@ const VerifyForm = () => {
         console.log(data.emailVerified);
         console.log("Send success");
         if (data.emailVerified) {
-          setverified(true);
+          setVerified(true);
         }
       }
     } catch (err) {
@@ -39,7 +39,7 @@ const VerifyForm = () => {
 
   useEffect(() => {
     autoVerifyEmailCheck();
-  }, []);
+  });
 
   const verifyHandler = async () => {
     const token = localStorage.getItem("Token");

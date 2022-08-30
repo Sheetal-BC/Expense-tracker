@@ -1,0 +1,83 @@
+.signup form{
+ margin: 3rem auto;
+  width: 75%;
+  max-width: 22rem;
+  height: 20rem;
+  border-radius: 50px 0px 50px 0px;
+  background-color: white;
+  box-shadow: 1px 1px 4px #888888;
+  padding: 1rem;
+  text-align: center;
+  justify-items: space-between;
+  
+}
+
+.heading{
+    text-align: center;
+    
+}
+
+.heading h2{
+  font-weight: 400;
+}
+
+.input-signup{
+    font: inherit;
+    color: black;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+    align-items: center;
+    width: 90%;
+    text-align: left;
+    margin:10px ; 
+    padding: 10px;
+    justify-content: space-around;
+    border: 1px solid rgb(64, 162, 241);
+  }
+  
+  .input-login{
+    font: inherit;
+    color: white;
+    background-color: black;
+    border: 1px solid gray;
+    border-radius: 25px;
+    align-items: center;
+    width: 90%;
+    text-align: left;
+    margin:10px ; 
+    padding: 10px;
+    justify-content: space-around;
+
+  }
+
+.sign-btn button{
+   background-color: rgb(64, 162, 241);
+   width: 95%;
+   height: 2.5rem;
+   border: none;
+   border-radius: 100px;
+   color: white;
+   font-size: 18px;
+   margin-top: 20px;
+   
+}
+
+.sign-btn a{
+  color: blue;
+  text-decoration: underline;
+  margin-top: 30px;
+}
+
+.msg-box button{
+   position: relative;
+   left:36%;
+   width: 28%;
+   height: 40px;
+   border-radius: 6px;
+   border:1px solid lightslategray;
+   background-color: rgb(206, 236, 247);
+   color: gray;
+   
+}
+
